@@ -4,9 +4,9 @@
     <!-- 轮播图区域 -->
     <mt-swipe :auto="3000">
         <!-- 在组件中，使用v-for循环的话，一定要使用key -->
-      <mt-swipe-item v-for="item in lunboList" :key="item.url">
+      <mt-swipe-item v-for="item in lunbotuList" :key="item.id">
           <!-- src是普通属性，普通属性会把 item.img 当成字符串来输出，要实现把item.img当成表达式来计算，要用属性绑定-->
-          <img src="item.img" alt="">
+          <img :src="item.img" alt="">
       </mt-swipe-item>
     </mt-swipe>
   </div>
@@ -27,7 +27,7 @@ export default {
   methods: {
     getLunbotu() {
       //获取轮播图数据的方法
-      this.$http.get("http://vue.studyit.io/api/getlunbo").then(response => {
+      this.$http.get("http://www.liulongbin.top:3005/api/getlunbo").then(response => {
         console.log(response.body);
         if (response.body.status === 0) {
           // 成功了
