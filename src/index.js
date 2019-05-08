@@ -23,6 +23,8 @@ Vue.component(SwipeItem.name, SwipeItem);
 import './lib/mui/css/mui.css'
 import './lib/mui/css/icons-extra.css'
 
+import './css/animate.css'
+
 // 1.3 导入自己的router.js路由模块
 import router from './router.js'
 
@@ -30,6 +32,7 @@ import router from './router.js'
 import VueResource from 'vue-resource'
 // 2.2 安装vue-resource
 Vue.use(VueResource)
+
 
 // 导入App根组件
 import app from './app.vue'

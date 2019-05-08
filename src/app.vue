@@ -12,8 +12,8 @@
 
     <!-- 中间的路由 router-view区域 -->
     
-
-    <transition>
+<!-- 这里用mode:"out-in"  先出再进，会有一个空白区，会让用户感觉需要等待，体验不好，所以不采用 -->
+    <transition >
       <router-view></router-view>
     </transition>
 
@@ -45,11 +45,25 @@
 </template>
 
 <script>
+
 </script>
 
 <style lang="scss" scoped>
 .app-container {
   padding-top: 41px;
+  overflow-x: hidden;
+}
+.v-enter{
+  opacity: 0;
+  transform: translateX(100%)//从右边进来
+}
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(-100%);//从左边出去
+  position: absolute;
+}
+.v-enter-active,.v-leave-active{
+  transition: all 0.5s ease;
 }
 </style>
 
