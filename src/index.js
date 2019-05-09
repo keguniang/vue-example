@@ -23,7 +23,7 @@ Vue.component(SwipeItem.name, SwipeItem);
 import './lib/mui/css/mui.css'
 import './lib/mui/css/icons-extra.css'
 
-import './css/animate.css'
+
 
 // 1.3 导入自己的router.js路由模块
 import router from './router.js'
@@ -31,8 +31,17 @@ import router from './router.js'
 // 2.1 导入vue-resource
 import VueResource from 'vue-resource'
 // 2.2 安装vue-resource
-Vue.use(VueResource)
+Vue.use(VueResource);
+// 设置全局根路径
+Vue.http.options.root = 'http://www.liulongbin.top:3005';
 
+// 导入格式化时间的插件
+import moment from 'moment'
+
+// 定义全局过滤器
+Vue.filter('dateFormat',function(dataStr,pattern = 'YYYY-MM-DD HH:mm:ss'){
+    return moment(dataStr).format(pattern);
+})
 
 // 导入App根组件
 import app from './app.vue'

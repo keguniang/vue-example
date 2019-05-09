@@ -7,19 +7,47 @@ import memberContainer from './components/tabbar/MemberContainer.vue'
 import shopcarContainer from './components/tabbar/ShopcarContainer.vue'
 import searchContainer from './components/tabbar/SearchContainer.vue'
 
+import newsListContainer from './components/news/NewsListContainer.vue'
+import newsInfoContainer from './components/news/NewsInfoContainer.vue'
 
 
 // 3、创建路由对象
 var router = new VueRouter({
-    routes: [//配置路由规则
-        { path: '/', redirect: '/home'},
-        { path: '/home', component: homeContainer},
-        { path: '/member', component: memberContainer},
-        { path: '/shopcar', component: shopcarContainer},
-        { path: '/search', component: searchContainer}
-        
+    routes: [ //配置路由规则
+        {
+            path: '/',
+            redirect: '/home'
+        },
+        {
+            path: '/home',
+            component: homeContainer,
+        },
+        {
+            path: '/member',
+            component: memberContainer
+        },
+        {
+            path: '/shopcar',
+            component: shopcarContainer
+        },
+        {
+            path: '/search',
+            component: searchContainer
+        },
+
+        {
+            path: '/home/newslist',
+            component: newsListContainer
+        },
+        // 注意home前边别忘了加/
+        {
+            path: '/home/newsinfo/:id',
+            component: newsInfoContainer
+        }
+
+
     ],
-    linkActiveClass: 'mui-active'//覆盖默认的路由高亮的类router-link-active
+    linkActiveClass: 'mui-active' //覆盖默认的路由高亮的类router-link-active
 })
 
 // 把路由对象router暴露出去
