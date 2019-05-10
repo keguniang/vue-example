@@ -9,7 +9,8 @@ import searchContainer from './components/tabbar/SearchContainer.vue'
 
 import newsListContainer from './components/news/NewsListContainer.vue'
 import newsInfoContainer from './components/news/NewsInfoContainer.vue'
-
+import photoShareContainer from './components/photoShare/photoContainer.vue'
+import photoinfoContainer from './components/photoShare/photoinfoContainer.vue'
 
 // 3、创建路由对象
 var router = new VueRouter({
@@ -43,6 +44,14 @@ var router = new VueRouter({
         {
             path: '/home/newsinfo/:id',
             component: newsInfoContainer
+        },
+        {
+            path : '/home/photoShare',
+            component : photoShareContainer
+        },
+        {
+            path: '/home/photoinfo/:id',
+            component : photoinfoContainer
         }
 
 

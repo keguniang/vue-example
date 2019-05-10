@@ -64,8 +64,66 @@ git init 创建本地仓储
 4. 将注册子组件时候的注册名称以标签的形式在页面中引用即可
 
 ## 获取所有的评论数据并循环渲染到页面中去
+getcommentinfo()
 
 ## 实现点击加载更多的功能
 1. 为加载更多按钮绑定点击事件，在事件中让页数加1
 2. 加1后重新调用this.getcommentinfo()方法获取最新一页的数据
 3. 为了防止上一页数据被下一页数据覆盖的情况，我们再点击加载更多的时候，应该上老数据拼接上新一页的数据，数组的拼接方法是concat()
+
+## 发表评论
+1. 把文本框做双向数据绑定
+2. 为发表按钮绑定点击事件
+3. 校验评论内容是否为空，如果为空则Toast提示内容为空
+4. 通过vue-resource 发送一个请求，把评论内容提交给服务器
+5. 当发表评论成功后，重新刷新列表，以查看最新的评论
+ + 如果调用 getcommentinfo 方法重新刷新评论列表的话，可能只能得到最后当前页的评论，获取不到最新的评论
+ + 换一种思路，当评论成功后，在客户端手动拼接出一个新的评论对象，然后利用数组的unshift方法，把最新的评论追加到 data 中的commentinfoList的开头，这样就能实现刷新列表的需求
+
+ ## 改造图片分析 按钮为 路由的链接并显示为对应的组件页面
+
+## 绘制 图片列表 组件页面结构并美化样式
+1. 制作顶部的滑动条
+2. 制作底部的图片列表
+
+### 制作顶部滑动条的坑们
+1. 需要借助于 MUI 中的 tab-top-webview-main.html
+2. 需要把 slide 区域的 mui-fullscreen 类去掉
+3. 滑动条无法正常触发滑动，通过检查官方文档，发现这是JS组件，需要被初始化一下
+ + 导入 mui.js
+ + 调用官方提供的方式去初始化
+    ```
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+    ```
+4. 我们在初始化滑动条的时候，导入的mui.js但是在控制台报错：Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+ + 原因是 mui.js中用到了'caller', 'callee', and 'arguments'这些东西，但是webpack打包好的bundle.js中，默认使用严格模式，所以二者是冲突的
+ + 解决方案：
+ 1. 把mui.js中的非严格模式的代码改掉，但是明显不现实
+ 2. 把webpack打包的严格模式禁用掉(可行)
+  + 使用 `babel-plugin-transform-remove-strict-mode` 这个插件[babel-plugin-transform-remove-strict-mode](https://github.com/genify/babel-plugin-transform-remove-strict-mode)
+
+5. 滑动的时候报错误：`Unable to preventDefault inside passive event listener due to target being treated as passive. See https://www.chromestatus.com/features/5093566007214080`
+```
+解决方法，可以加上* { touch-action: pan-y; } 这句样式去掉。
+```
+原因：（是chrome为了提高页面的滑动流畅度而新折腾出来的一个东西） http://www.cnblogs.com/pearl07/p/6589114.html
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/touch-action  
+6. 如果要初始化滑动条必须要等 DOM 元素加载完毕，所以我们需要把初始化滑动条的代码放在mounted生命周期函数中
+7. 当滑动条调试成功后，tabbar无法正常工作了，这是因为mui.js与mui-tab-item这个类名冲突了，所以我们需要把tabbar样式中`mui-tab-item` 重新改一下名字
+
+## 获取所有照片分类并渲染数据
+1. 图片列表需要使用懒加载技术，我们可以使用Mint-UI提供的组件  `lazy-load`
+
+### 实现了图片列表的懒加载改造和样式美化
+
+## 实现点击图片跳转到图片详情页面
+1.在改造li 成router-link的时候，需要使用tag属性指定要渲染为li标签  或者直接用router-link 标签包起来
+
+## 实现图片详情页面的布局和美化，数据渲染页面
+
+## 实现图片详情中 缩略图的功能
+1. 一个Vue集成PhotoSwipe图片预览插件[vue-preview](https://github.com/LS1231/vue-preview)
+2. `npm i vue-preview -S`  `import VuePreview from 'vue-preview'`   `Vue.use(VuePreview)`
+3. 注意：每个图片对象中，必须有w,h 属性，所以获取到所有的图片列表后，使用 foreach 指令补全图片的宽和高
