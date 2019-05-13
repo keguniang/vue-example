@@ -126,4 +126,29 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/touch-action
 ## 实现图片详情中 缩略图的功能
 1. 一个Vue集成PhotoSwipe图片预览插件[vue-preview](https://github.com/LS1231/vue-preview)
 2. `npm i vue-preview -S`  `import VuePreview from 'vue-preview'`   `Vue.use(VuePreview)`
-3. 注意：每个图片对象中，必须有w,h 属性，所以获取到所有的图片列表后，使用 foreach 指令补全图片的宽和高
+3. 注意：每个图片对象中，必须有w,h和msrc 属性，所以获取到所有的图片列表后，使用 foreach 指令补全图片的宽和高和msrc
+4. 实现布局还需要设置一下 figure 的样式
+
+## 绘制 商品列表 页面基本结构并美化
+
+## 尝试在手机上去进行项目的预览和测试
+1. 要保证手机 和 开发项目的电脑 处于同一个wifi环境中(同一个局域网)，也就是说手机可以访问到电脑的IP
+2. 打开项目中的 package,json 文件，在dev脚本中添加一个 --host指令，把当前电脑的wifi ip地址，设置为 --host的指令值
+    // "dev": "webpack-dev-server --open --port 3000 --hot --host 192.168.124.2",
+ + 如何查看自己电脑所处 wifi 的IP呢？在cmd终端中运行  `config`，查看无线网的ip地址
+
+## 使用编程式导航为app.vue设置返回按钮
+`this.$router.go(-1);`
+
+## 把轮播图组件剥离出来成为子组件
+1. swiper.vue
+2. 解决商品评论中图片宽度100% 还是自适应的问题
+    + 首页中的图片，宽为100%
+    + 但是在商品详情页面中，宽为100%不好看
+    + 商品详情页面中期望是：宽度为自适应，高度为100%
+    + 经过分析得到问题的原因：首页中的轮播图和详情中的轮播图的分歧点是：宽度到底是自适应还是100%
+    + 解决办法：定义一个属性，让使用轮播图的父组件，手动指定是否为100%的宽度
+
+## 把子组件中的数据传递给父组件
+1. 通过事件调用机制
+2. 使用JS的API设置numbox的最大值

@@ -11,6 +11,11 @@ import newsListContainer from './components/news/NewsListContainer.vue'
 import newsInfoContainer from './components/news/NewsInfoContainer.vue'
 import photoShareContainer from './components/photoShare/photoContainer.vue'
 import photoinfoContainer from './components/photoShare/photoinfoContainer.vue'
+import goodsListContainer from './components/goods/GoodsList.vue'
+import goodsInfoContainer from './components/goods/GoodsInfo.vue'
+import goodsCommentContainer from './components/goods/GoodsComment.vue'
+import goodsDescContainer from './components/goods/GoodsDesc.vue'
+
 
 // 3、创建路由对象
 var router = new VueRouter({
@@ -52,7 +57,27 @@ var router = new VueRouter({
         {
             path: '/home/photoinfo/:id',
             component : photoinfoContainer
-        }
+        },
+        {
+            path: '/home/goodsList',
+            component : goodsListContainer
+        },
+        {
+            path: '/home/goodsInfo/:id',
+            component : goodsInfoContainer,
+            // 给该路由起个名字，通过改名字跳转到这个路由
+            name: 'goodsInfo'
+        },
+        {
+            path: '/home/goodsDesc/:id',
+            component : goodsDescContainer,
+            name: 'goodsDesc'
+        },
+        {
+            path: '/home/goodsComment/:id',
+            component : goodsCommentContainer,
+            name: 'goodsComment'
+        },
 
 
     ],

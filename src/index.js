@@ -34,16 +34,7 @@ import './lib/mui/css/icons-extra.css'
 import VuePreview from 'vue-preview'
 
 Vue.use(VuePreview)
-// Vue.use(VuePreview, {
-//     mainClass: 'pswp--minimal--dark',
-//     barsSize: {top: 0, bottom: 0},
-//     captionEl: false,
-//     fullscreenEl: false,
-//     shareEl: false,
-//     bgOpacity: 0.85,
-//     tapToClose: true,
-//     tapToToggleControls: false
-//   })
+
 
 // 1.3 导入自己的router.js路由模块
 import router from './router.js'

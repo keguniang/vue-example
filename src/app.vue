@@ -3,17 +3,17 @@
     <!-- 顶部Header区域 -->
     <mt-header fixed title="固定在顶部">
       <!-- slot位置  左边/右边显示元素 -->
-      <router-link to="/" slot="left">
-        <mt-button icon="back">返回</mt-button>
+      <router-link to slot="left" >
+        <mt-button icon="back" @click="back">返回</mt-button>
       </router-link>
 
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
 
     <!-- 中间的路由 router-view区域 -->
-    
-<!-- 这里用mode:"out-in"  先出再进，会有一个空白区，会让用户感觉需要等待，体验不好，所以不采用 -->
-    <transition >
+
+    <!-- 这里用mode:"out-in"  先出再进，会有一个空白区，会让用户感觉需要等待，体验不好，所以不采用 -->
+    <transition>
       <router-view></router-view>
     </transition>
 
@@ -31,7 +31,7 @@
 
       <router-link class="mui-tab-item-ck" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge">0</span>
+          <span class="mui-badge" id="badge">0</span>
         </span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
@@ -45,7 +45,14 @@
 </template>
 
 <script>
-
+export default {
+  methods: {
+    back() {
+      // 编程式导航
+      this.$router.go(-1);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -54,50 +61,51 @@
   padding-bottom: 50px;
   overflow-x: hidden;
 }
-.v-enter{
+.v-enter {
   opacity: 0;
-  transform: translateX(100%)//从右边进来
+  transform: translateX(100%); //从右边进来
 }
-.v-leave-to{
+.v-leave-to {
   opacity: 0;
-  transform: translateX(-100%);//从左边出去
+  transform: translateX(-100%); //从左边出去
   position: absolute;
 }
-.v-enter-active,.v-leave-active{
+.v-enter-active,
+.v-leave-active {
   transition: all 0.5s ease;
 }
 // 改类名，解决 tabbar 点击无法切换的问题
 .mui-bar-tab .mui-tab-item-ck.mui-active {
-    color: #007aff;
+  color: #007aff;
 }
 
 .mui-bar-tab .mui-tab-item-ck {
-    display: table-cell;
-    overflow: hidden;
-    width: 1%;
-    height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #929292;
+  display: table-cell;
+  overflow: hidden;
+  width: 1%;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #929292;
 }
 
 .mui-bar-tab .mui-tab-item-ck .mui-icon {
-    top: 3px;
-    width: 24px;
-    height: 24px;
-    padding-top: 0;
-    padding-bottom: 0;
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-.mui-bar-tab .mui-tab-item-ck .mui-icon~.mui-tab-label {
-    font-size: 11px;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.mui-bar-tab .mui-tab-item-ck .mui-icon ~ .mui-tab-label {
+  font-size: 11px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.mint-header{
+.mint-header {
   z-index: 2;
 }
 </style>

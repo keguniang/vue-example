@@ -53,6 +53,7 @@ export default {
             // 这两行是设置缩略图预览时候的宽高
             element.w = 365;
             element.h = 275;
+            // 这是展示的缩略图
             element.msrc = element.src;
           });
           // 把完整的数据保存到imagesList中
