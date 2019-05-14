@@ -156,3 +156,5 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/touch-action
 ## 购物车上徽标的数字怎么得来的？
 利用ref属性得到文本框中的数字，并把这个数字传给父组件，保存到localStorage中的count属性，
 购物车上的徽标是读取的localStorage中的count属性的总和得出来的
+
+## 将项目托管到Apache上并启用Gzip压缩
