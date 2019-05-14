@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <!-- 顶部Header区域 -->
-    <mt-header fixed title="固定在顶部">
+    <mt-header fixed title="Vue项目">
       <!-- slot位置  左边/右边显示元素 -->
-      <router-link to slot="left" >
+      <router-link to slot="left" v-show="flag">
         <mt-button icon="back" @click="back">返回</mt-button>
       </router-link>
 
@@ -31,7 +31,7 @@
 
       <router-link class="mui-tab-item-ck" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge" id="badge">0</span>
+          <span class="mui-badge" id="badge">{{ $store.getters.getAllCount}}</span>
         </span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
@@ -46,10 +46,27 @@
 
 <script>
 export default {
+  data() {
+    return {
+      flag: false
+    };
+  },
+  created() {
+    this.flag = this.$route.path === '/home' ?  false : true
+  },
   methods: {
     back() {
       // 编程式导航
       this.$router.go(-1);
+    }
+  },
+  watch: {
+    "$route.path": function(newVal) {
+      if (newVal === "/home") {
+        this.flag = false;
+      } else {
+        this.flag = true;
+      }
     }
   }
 };

@@ -38,7 +38,7 @@
               1. 加入购物车按钮属于 goodsinfo页面，数字属于 numberbox 组件
               2. 由于涉及到了父子组件的嵌套了，所以无法直接在goodsinfo页面中获取到选中的商品数量值
               3. 涉及到了子组件向父组件传值（事件调用机制）
-              4. 事件调用的本质：父向子传递方法，子调用这个方法，同时把数据当做参数传递给这个方法  -->
+              4. 事件调用的本质：父向子传递方法，子调用这个方法，同时把数据当做参数传递给这个方法-->
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default {
       goodsInfo: {},
       goodsImageList: [],
       ballFlag: false, //控制小球隐藏与显示
-      selectedCount: 1//保存用户选中的商品数量,默认认为用户买一个
+      selectedCount: 1 //保存用户选中的商品数量,默认认为用户买一个
     };
   },
   created() {
@@ -129,6 +129,21 @@ export default {
     },
     addToShopCar() {
       this.ballFlag = true;
+      //{id: 商品的id,count: 要购买的数量,price: 商品的单价,selected:false}
+      // 拼接出一个要保存到store中car数组中的对象
+      var goodsinfo = {
+        id: parseInt(this.id),
+        count: this.selectedCount,
+        price: this.goodsInfo.sell_price,
+        selected: true
+      };
+      
+      // 调用store中的mutations来将物品加入购物车
+      this.$store.commit("addToCar", goodsinfo);
+      this.$store.commit("getMaxValue", this.goodsInfo.stock_quantity);
+
+      // 当更新car之后，把car数组存储到本地的localStorage中,否则一刷新state.car就清空了
+      localStorage.setItem("car", JSON.stringify(this.$store.state.car));
     },
     beforeEnter(el) {
       el.style.transform = "translate(0,0)";
@@ -151,23 +166,22 @@ export default {
       // 获取小球在页面中的位置
       const ballPos = this.$refs.ball.getBoundingClientRect();
       // 获取徽标在页面中的位置
-      const badgePos = document.getElementById('badge').getBoundingClientRect();
+      const badgePos = document.getElementById("badge").getBoundingClientRect();
 
       var xDist = badgePos.left - ballPos.left;
       var yDist = badgePos.top - ballPos.top;
 
       el.style.transform = `translate(${xDist}px,${yDist}px)`;
-      el.style.transition = 'all 0.5s cubic-bezier(.42,-0.37,.8,.68)';
+      el.style.transition = "all 0.5s cubic-bezier(.42,-0.37,.8,.68)";
       done();
     },
     afterEnter(el) {
-        this.ballFlag = false;
+      this.ballFlag = false;
     },
-    getSelectedCount(count){
+    getSelectedCount(count) {
       // 当子组件把选中的数量传递给父组件的时候，把选中得值保存到data上
       this.selectedCount = count;
-      console.log('父组件拿到的值为:' + this.selectedCount);
-      
+      console.log("父组件拿到的值为:" + this.selectedCount);
     }
   },
   components: {
