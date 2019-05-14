@@ -158,3 +158,5 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/touch-action
 购物车上的徽标是读取的localStorage中的count属性的总和得出来的
 
 ## 将项目托管到Apache上并启用Gzip压缩
+
+## 使用ngrok将本机映射为一个外网的Web服务器
