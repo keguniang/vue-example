@@ -123,7 +123,7 @@ var store = new Vuex.Store({
             var money = 0;
             state.car.forEach(item => {
                 if (item.selected) {
-                    money += item.price;
+                    money += item.price * item.count;
                 }
             })
             return money;
@@ -190,3 +190,5 @@ var vue = new Vue({
     router, //1.4 挂载路由对象到vm实例
     store //挂载store状态管理对象
 })
+
+console.log('-------' + this)                                                                                                                                                        
